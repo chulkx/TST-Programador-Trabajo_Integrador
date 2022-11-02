@@ -27,27 +27,42 @@ class Conectar():
                 propiedad.getDireccion(),
                 propiedad.getContacto()
             )
+            cursor.execute(sql, data)
+            self.conexion.commit()
+            self.conexion.close()
         pass
 
-    def modif_propiedad():
+    def modif_propiedad(self):
         pass
 
-    def eliminar_propiedad():
+    def eliminar_propiedad(self):
         pass
 
-    def consulta_propiedades():
+    def consulta_propiedades(self):
         pass
 
-    def consulta_propiedades_venta():
+    def consulta_propiedades_venta(self):
         pass
 
-    def consulta_propiedades_alquiler():
+    def consulta_propiedades_alquiler(self):
         pass
 
-    def consulta_propiedades_vendidas():
+    def consulta_propiedades_vendidas(self):
         pass
 
-    def consulta_propiedades_alquiladas():
+    def consulta_propiedades_alquiladas(self):
+        pass
+
+    def listar_tipos(self):
+        pass
+
+    def listar_estado(self):
+        pass
+
+    def listar_operatoria(self):
+        pass
+
+    def listar_propietario(self):
         pass
 
 class Propiedad():
@@ -176,3 +191,4 @@ class Propietario():
         self.direccion = direccion
     def setContacto(self, contacto):
         self.contacto = contacto
+
