@@ -7,10 +7,13 @@ from rich.console import Console
 
 console= Console()
 
+console.print("\n+-------------------------------------------+", style="bold blue")
+console.print("|                INMOBILIARIA               |", style="bold blue")
+console.print("+-------------------------------------------+\n", style="bold blue")
+print("")
+
 while True:
-    console.print("\n+-------------------------------------------+", style="bold blue")
-    console.print("|                INMOBILIARIA               |", style="bold blue")
-    console.print("+-------------------------------------------+\n", style="bold blue")
+
     print("")
     console.print("MENÚ PRINCIPAL\n", style=("bold green"))
     print("1 - NUEVO PROPIETARIO")
