@@ -54,8 +54,10 @@ INSERT INTO tipo VALUES (null,'Departamento');
 INSERT INTO tipo VALUES (null,'Quinta');
 INSERT INTO tipo VALUES (null,'Duplex');
 
-INSERT INTO estado VALUES (null,'Disponible');
-INSERT INTO estado VALUES (null,'No disponible');
+INSERT INTO estado VALUES (null,'Disponible'); #1
+INSERT INTO estado VALUES (null,'No disponible'); #2
+INSERT INTO estado VALUES (null, 'Vendida'); #3
+INSERT INTO estado VALUES (null, 'Alquilada'); #4
 
 INSERT INTO operatoria_comercial VALUES (null,'Alquiler');
 INSERT INTO operatoria_comercial VALUES (null,'Venta');
