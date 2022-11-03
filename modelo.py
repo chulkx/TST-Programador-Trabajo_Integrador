@@ -16,7 +16,7 @@ class Conectar():
     def cargar_propiedad(self, propiedad):
         if self.conexion.is_connected():
             cursor = self.conexion.cursor()
-            sql = 'INSERT INTO propiedad values(null, %s, %s, %s)'
+            sql = 'INSERT INTO propiedad values(%s, %s, %s, %s, %s, %s, %s, %s)'
             data = (
                 propiedad.getIdProp(),
                 propiedad.getTipo(),
@@ -30,7 +30,20 @@ class Conectar():
             cursor.execute(sql, data)
             self.conexion.commit()
             self.conexion.close()
-        pass
+        
+    def cargar_propietario(self, propietario):
+        if self.conexion.is_connected():
+            cursor = self.conexion.cursor()
+            sql = 'INSERT INTO propietario values (%s, %s, %s, %s)'
+            data = (
+                propietario.getIdPropietario(),
+                propietario.getNombre(),
+                propietario.getDireccion(),
+                propietario.getContacto()
+            )
+            cursor.execute(sql, data)
+            self.conexion.commit()
+            self.conexion.close()
 
     def modif_propiedad(self):
         pass
@@ -39,13 +52,26 @@ class Conectar():
         pass
 
     def consulta_propiedades(self):
-        pass
+        cursor = self.conexion.cursor()
+        sentenciaSQL = "SELECT * FROM propiedades"
+        cursor.execute(sentenciaSQL)
+        res = cursor.fetchall()
+        return res
+        
 
     def consulta_propiedades_venta(self):
-        pass
+        cursor = self.conexion.cursor()
+        sentenciaSQL = "SELECT nombre, direccion, contacto FROM propiedad WHERE id_operatoria_comercial = 2"
+        cursor.execute(sentenciaSQL)
+        res = cursor.fetchall()
+        return res
 
     def consulta_propiedades_alquiler(self):
-        pass
+        cursor = self.conexion.cursor()
+        sentenciaSQL = "SELECT nombre, direccion, contacto FROM propiedad WHERE id_operatoria_comercial = 1"
+        cursor.execute(sentenciaSQL)
+        res = cursor.fetchall()
+        return res
 
     def consulta_propiedades_vendidas(self):
         pass
@@ -54,16 +80,32 @@ class Conectar():
         pass
 
     def listar_tipos(self):
-        pass
+        cursor = self.conexion.cursor()
+        sentenciaSQL = "SELECT * FROM tipo"
+        cursor.execute(sentenciaSQL)
+        res = cursor.fetchall()
+        return res
 
     def listar_estado(self):
-        pass
+        cursor = self.conexion.cursor()
+        sentenciaSQL = "SELECT * FROM estado"
+        cursor.execute(sentenciaSQL)
+        res = cursor.fetchall()
+        return res
 
     def listar_operatoria(self):
-        pass
+        cursor = self.conexion.cursor()
+        sentenciaSQL = "SELECT * FROM operatoria_comercial"
+        cursor.execute(sentenciaSQL)
+        res = cursor.fetchall()
+        return res
 
     def listar_propietario(self):
-        pass
+        cursor = self.conexion.cursor()
+        sentenciaSQL = "SELECT * FROM propietario"
+        cursor.execute(sentenciaSQL)
+        res = cursor.fetchall()
+        return res
 
 class Propiedad():
     def __init__(self, id_propiedad, tipo, estado, operatoria, propietario, nombre, direccion, contacto):
@@ -174,7 +216,7 @@ class Propietario():
     def __str__(self) -> str:
         return str(self.id_propietario)+' '+self.nombre
 
-    def getIdTipo(self):
+    def getIdPropietario(self):
         return self.id_propietario
     def getNombre(self):
         return self.nombre
@@ -183,7 +225,7 @@ class Propietario():
     def getContacto(self):
         return self.contacto
 
-    def setIdTipo(self,id_propietario):
+    def setIdPropietario(self,id_propietario):
         self.id_propietario = id_propietario
     def setNombre(self,nombre):
         self.nombre = nombre

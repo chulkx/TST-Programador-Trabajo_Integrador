@@ -10,11 +10,10 @@ def cargar_propiedad():
 
     consola.print('Ingrese la informacion necesaria para cargar una propiedad.\n')
 
+    consola.print('Ingrese el ID del tipo correspondiente: ', style=('bold blue'))
     tipos = con.listar_tipos()
     for t in tipos:
         consola.print('ID: ', t[0] ,' ---> ', t[1])
-        print('\n')
-    consola.print('Ingrese el ID del tipo correspondiente: ', style=('bold blue'))
     while a:
         try:
             tipo = int(input('->'))
@@ -22,11 +21,10 @@ def cargar_propiedad():
         except:
             consola.print('Dato incorrecto')
 
+    consola.print('Ingrese el ID del estado correspondiente: ', style=('bold blue'))
     estados = con.listar_estado()
     for e in estados:
-        consola.print('ID: ', t[0] ,' ---> ', t[1])
-        print('\n')
-    consola.print('Ingrese el ID del estado correspondiente: ', style=('bold blue'))
+        consola.print('ID: ', e[0] ,' ---> ', e[1])
     a = True
     while a:
         try:
@@ -35,11 +33,10 @@ def cargar_propiedad():
         except:
             consola.print('Dato incorrecto')
 
+    consola.print('Ingrese el ID de la operatoria correspondiente: ', style=('bold blue'))
     operaciones = con.listar_operatoria()
     for o in operaciones:
-        consola.print('ID: ', t[0] ,' ---> ', t[1])
-        print('\n')
-    consola.print('Ingrese el ID de la operatoria correspondiente: ', style=('bold blue'))
+        consola.print('ID: ', o[0] ,' ---> ', o[1])
     a = True
     while a:
         try:
@@ -48,11 +45,10 @@ def cargar_propiedad():
         except:
             consola.print('Dato incorrecto')
 
+    consola.print('Ingrese el ID del propietario correspondiente: ', style=('bold blue'))
     propietarios = con.listar_propietario()
     for p in propietarios:
-        consola.print('ID: ', t[0] ,' ---> ', t[1])
-        print('\n')
-    consola.print('Ingrese el ID del propietario correspondiente: ', style=('bold blue'))
+        consola.print('ID: ', p[0] ,' ---> ', p[1])
     a = True
     while a:
         try:
@@ -79,7 +75,25 @@ def cargar_propiedad():
     input("Presione ENTER para continuar")
 
 
+def cargar_propietario():
+    con = mo.Conectar()
+    consola.print("Nombre:",style=("bold blue"))
+    nombre = input("-> ")
+    print("\n")
+    consola.print("Dirección:",style=("bold blue"))
+    direccion = input("-> ")
+    print("\n")
+    consola.print("Contacto:",style=("bold blue"))
+    contacto = input("->")
+    nuevo_propietario = mo.Propietario(0, nombre, direccion, contacto)
+    con.cargar_propietario(nuevo_propietario)
+    con.conexion.close()
 
+    consola.print(f"'El Propietario '{nombre}' fue ingresado con éxito.'")
+    input("Presione ENTER para continuar")
+    
+
+    pass
 def modif_propiedad():
     pass
 
@@ -87,10 +101,20 @@ def eliminar_propiedad():
     pass
 
 def listar_propiedades():
-    pass
+    con = mo.Conectar()
+    listado = con.consulta_propiedades()
+    for l in listado:
+        consola.print(l, style=("bold red"))
+        print("\n")
+    input("Presiones ENTER para continuar")
 
 def listar_propiedades_venta():
-    pass
+    con = mo.Conectar()
+    listado = con.consulta_propiedades_venta()
+    for l in listado:
+        consola.print(l, style=("bold red"))
+        print("\n")
+    input("Presiones ENTER para continuar")
 
 def listar_propiedades_alquiler():
     pass
