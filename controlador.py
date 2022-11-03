@@ -100,9 +100,37 @@ def cargar_propietario():
     input("Presione ENTER para continuar")
     
 
-    pass
 def modif_propiedad():
-    pass
+    con = mo.Conectar()
+    listar_propiedades()
+    consola.print('Ingrese el ID de la Propiedad que desea modificar:', style='bold green')
+    id_p = input('->')
+    listar_propiedades_por_id(id_p)
+    consola.print('Ingrese el numero de campo que desea modificar:', style='bold green')
+    consola.print('Recuerde que no puede modificar el ID de la Propiedad', style='bold red')
+    campo = int(input('->'))
+    if campo == 2:
+        campo_c = 'id_tipo'
+        print(con.listar_tipos())
+    elif campo == 3:
+        campo_c = 'id_operatoria_comercial'
+        print(con.listar_operatoria())
+    elif campo == 4:
+        campo_c = 'id_estado'
+        print(con.listar_estado())
+    elif campo == 5:
+        campo_c = 'nombre'
+    elif campo == 6:
+        campo_c = 'direccion'
+    elif campo == 7:
+        campo_c = 'contacto'
+
+    print('Ingrese el nuevo dato:')
+    dato = input('->')
+    con.modif_propiedad(campo_c, dato, id_p)
+
+
+
 
 def eliminar_propiedad():
     consola.print("Ingrese el ID de la propiedad a eliminar: ",style=("bold blue"))
@@ -110,6 +138,22 @@ def eliminar_propiedad():
     con = mo.Conectar()
     con.eliminar_propiedad(id_p)
     
+def listar_propiedades_por_id(id):
+    con = mo.Conectar()
+    listado = con.listar_propiedades_por_id(id)
+    tabla = Table(title='Propiedades', show_lines=True)
+    tabla.add_column("1 - ID", justify="right", style="cyan", no_wrap=True)
+    tabla.add_column("2 - TIPO", style="magenta")
+    tabla.add_column("3 - OPERATORIA", style="magenta")
+    tabla.add_column("4 - ESTADO", style="magenta")
+    tabla.add_column("5 - PROPIETARIO", style="magenta")
+    tabla.add_column("6 - NOMBRE", style="magenta")
+    tabla.add_column("7 - DIRECCION", style="magenta")
+    tabla.add_column("8 - CONTACTO", style="magenta")
+    for l in listado:
+        tabla.add_row(str(l[0]), str(l[1]), str(l[2]), str(l[3]), str(l[4]), str(l[5]), str(l[6]), str(l[7]))
+    consola.print(tabla)
+
 
 def listar_propiedades():
     con = mo.Conectar()
@@ -117,8 +161,8 @@ def listar_propiedades():
     tabla = Table(title='Propiedades', show_lines=True)
     tabla.add_column("ID", justify="right", style="cyan", no_wrap=True)
     tabla.add_column("TIPO", style="magenta")
-    tabla.add_column("ESTADO", style="magenta")
     tabla.add_column("OPERATORIA", style="magenta")
+    tabla.add_column("ESTADO", style="magenta")
     tabla.add_column("PROPIETARIO", style="magenta")
     tabla.add_column("NOMBRE", style="magenta")
     tabla.add_column("DIRECCION", style="magenta")
@@ -132,21 +176,71 @@ def listar_propiedades():
 def listar_propiedades_venta():
     con = mo.Conectar()
     listado = con.consulta_propiedades_venta()
+    tabla = Table(title='Propiedades', show_lines=True)
+    tabla.add_column("ID", justify="right", style="cyan", no_wrap=True)
+    tabla.add_column("TIPO", style="magenta")
+    tabla.add_column("OPERATORIA", style="magenta")
+    tabla.add_column("ESTADO", style="magenta")
+    tabla.add_column("PROPIETARIO", style="magenta")
+    tabla.add_column("NOMBRE", style="magenta")
+    tabla.add_column("DIRECCION", style="magenta")
+    tabla.add_column("CONTACTO", style="magenta")
     for l in listado:
-        consola.print(l, style=("bold red"))
-        print("\n")
+        tabla.add_row(str(l[0]), str(l[1]), str(l[2]), str(l[3]), str(l[4]), str(l[5]), str(l[6]), str(l[7]))
+        
+    consola.print(tabla)
     input("Presiones ENTER para continuar")
 
 def listar_propiedades_alquiler():
     con = mo.Conectar()
     listado = con.consulta_propiedades_alquiler()
+    tabla = Table(title='Propiedades', show_lines=True)
+    tabla.add_column("ID", justify="right", style="cyan", no_wrap=True)
+    tabla.add_column("TIPO", style="magenta")
+    tabla.add_column("OPERATORIA", style="magenta")
+    tabla.add_column("ESTADO", style="magenta")
+    tabla.add_column("PROPIETARIO", style="magenta")
+    tabla.add_column("NOMBRE", style="magenta")
+    tabla.add_column("DIRECCION", style="magenta")
+    tabla.add_column("CONTACTO", style="magenta")
     for l in listado:
-        consola.print(l, style=("bold red"))
-        print("\n")
+        tabla.add_row(str(l[0]), str(l[1]), str(l[2]), str(l[3]), str(l[4]), str(l[5]), str(l[6]), str(l[7]))
+        
+    consola.print(tabla)
     input("Presiones ENTER para continuar")
 
 def listar_propiedades_vendidas():
-    pass
+    con = mo.Conectar()
+    listado = con.consulta_propiedades_vendidas()
+    tabla = Table(title='Propiedades', show_lines=True)
+    tabla.add_column("ID", justify="right", style="cyan", no_wrap=True)
+    tabla.add_column("TIPO", style="magenta")
+    tabla.add_column("OPERATORIA", style="magenta")
+    tabla.add_column("ESTADO", style="magenta")
+    tabla.add_column("PROPIETARIO", style="magenta")
+    tabla.add_column("NOMBRE", style="magenta")
+    tabla.add_column("DIRECCION", style="magenta")
+    tabla.add_column("CONTACTO", style="magenta")
+    for l in listado:
+        tabla.add_row(str(l[0]), str(l[1]), str(l[2]), str(l[3]), str(l[4]), str(l[5]), str(l[6]), str(l[7]))
+        
+    consola.print(tabla)
+    input("Presiones ENTER para continuar")
 
 def listar_propiedades_alquiladas():
-    pass
+    con = mo.Conectar()
+    listado = con.consulta_propiedades_alquiladas()
+    tabla = Table(title='Propiedades', show_lines=True)
+    tabla.add_column("ID", justify="right", style="cyan", no_wrap=True)
+    tabla.add_column("TIPO", style="magenta")
+    tabla.add_column("OPERATORIA", style="magenta")
+    tabla.add_column("ESTADO", style="magenta")
+    tabla.add_column("PROPIETARIO", style="magenta")
+    tabla.add_column("NOMBRE", style="magenta")
+    tabla.add_column("DIRECCION", style="magenta")
+    tabla.add_column("CONTACTO", style="magenta")
+    for l in listado:
+        tabla.add_row(str(l[0]), str(l[1]), str(l[2]), str(l[3]), str(l[4]), str(l[5]), str(l[6]), str(l[7]))
+        
+    consola.print(tabla)
+    input("Presiones ENTER para continuar")

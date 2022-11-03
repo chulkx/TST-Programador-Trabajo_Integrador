@@ -46,8 +46,13 @@ class Conectar():
             self.conexion.commit()
             self.conexion.close()
 
-    def modif_propiedad(self):
-        pass
+    def modif_propiedad(self, campo, dato, id_p):
+        if self.conexion.is_connected():
+            cursor = self.conexion.cursor()
+            sql = "UPDATE propiedad SET "+campo+" = "+dato+" WHERE propiedad.id_propiedad = "+id_p
+            cursor.execute(sql)
+            self.conexion.commit()
+            self.conexion.close()
 
     def eliminar_propiedad(self, id_p):
         if self.conexion.is_connected():
@@ -68,32 +73,41 @@ class Conectar():
         res = cursor.fetchall()
         return res
     
-    def consulta_propiedades_tabla(self):
+    def consulta_propiedades_tabla(self):#
         cursor = self.conexion.cursor()
-        sql = "SELECT p.id_propiedad, t.nombre_tipo, o.nombre_operatoria_comercial, e.nombre_estado, pro.nombre, p.nombre, p.direccion, p.contacto, t.nombre_tipo FROM propiedad as p JOIN tipo as t ON p.id_tipo = t.id_tipo JOIN estado as e ON p.id_estado = e.id_estado JOIN operatoria_comercial as o ON p.id_operatoria_comercial = o.id_operatoria_comercial JOIN propietario as pro ON p.id_propietario = pro.id_propietario"
+        sql = "SELECT p.id_propiedad, t.nombre_tipo, o.nombre_operatoria_comercial, e.nombre_estado, pro.nombre, p.nombre, p.direccion, p.contacto, t.nombre_tipo FROM propiedad as p JOIN tipo as t ON p.id_tipo = t.id_tipo JOIN estado as e ON p.id_estado = e.id_estado JOIN operatoria_comercial as o ON p.id_operatoria_comercial = o.id_operatoria_comercial JOIN propietario as pro ON p.id_propietario = pro.id_propietario ORDER BY p.id_propiedad"
         cursor.execute(sql)
         res = cursor.fetchall()
         return res
 
-    def consulta_propiedades_venta(self):
+    def consulta_propiedades_venta(self):#
         cursor = self.conexion.cursor()
-        sentenciaSQL = "SELECT nombre, direccion, contacto FROM propiedad WHERE id_operatoria_comercial = 2"
-        cursor.execute(sentenciaSQL)
+        sql = "SELECT p.id_propiedad, t.nombre_tipo, o.nombre_operatoria_comercial, e.nombre_estado, pro.nombre, p.nombre, p.direccion, p.contacto, t.nombre_tipo FROM propiedad as p JOIN tipo as t ON p.id_tipo = t.id_tipo JOIN estado as e ON p.id_estado = e.id_estado JOIN operatoria_comercial as o ON p.id_operatoria_comercial = o.id_operatoria_comercial JOIN propietario as pro ON p.id_propietario = pro.id_propietario WHERE p.id_operatoria_comercial = 2"
+        cursor.execute(sql)
         res = cursor.fetchall()
         return res
 
-    def consulta_propiedades_alquiler(self):
+    def consulta_propiedades_alquiler(self):#
         cursor = self.conexion.cursor()
-        sentenciaSQL = "SELECT nombre, direccion, contacto FROM propiedad WHERE id_operatoria_comercial = 1"
-        cursor.execute(sentenciaSQL)
+        sql = "SELECT p.id_propiedad, t.nombre_tipo, o.nombre_operatoria_comercial, e.nombre_estado, pro.nombre, p.nombre, p.direccion, p.contacto, t.nombre_tipo FROM propiedad as p JOIN tipo as t ON p.id_tipo = t.id_tipo JOIN estado as e ON p.id_estado = e.id_estado JOIN operatoria_comercial as o ON p.id_operatoria_comercial = o.id_operatoria_comercial JOIN propietario as pro ON p.id_propietario = pro.id_propietario WHERE p.id_operatoria_comercial = 1"
+        cursor.execute(sql)
         res = cursor.fetchall()
         return res
 
     def consulta_propiedades_vendidas(self):
-        pass
+        cursor = self.conexion.cursor()
+        sql = "SELECT p.id_propiedad, t.nombre_tipo, o.nombre_operatoria_comercial, e.nombre_estado, pro.nombre, p.nombre, p.direccion, p.contacto, t.nombre_tipo FROM propiedad as p JOIN tipo as t ON p.id_tipo = t.id_tipo JOIN estado as e ON p.id_estado = e.id_estado JOIN operatoria_comercial as o ON p.id_operatoria_comercial = o.id_operatoria_comercial JOIN propietario as pro ON p.id_propietario = pro.id_propietario WHERE p.id_operatoria_comercial = 2 AND p.id_estado = 3"
+        cursor.execute(sql)
+        res = cursor.fetchall()
+        return res
+        
 
     def consulta_propiedades_alquiladas(self):
-        pass
+        cursor = self.conexion.cursor()
+        sql = "SELECT p.id_propiedad, t.nombre_tipo, o.nombre_operatoria_comercial, e.nombre_estado, pro.nombre, p.nombre, p.direccion, p.contacto, t.nombre_tipo FROM propiedad as p JOIN tipo as t ON p.id_tipo = t.id_tipo JOIN estado as e ON p.id_estado = e.id_estado JOIN operatoria_comercial as o ON p.id_operatoria_comercial = o.id_operatoria_comercial JOIN propietario as pro ON p.id_propietario = pro.id_propietario WHERE p.id_operatoria_comercial = 1  AND p.id_estado = 4"
+        cursor.execute(sql)
+        res = cursor.fetchall()
+        return res
 
     def listar_tipos(self):
         cursor = self.conexion.cursor()
@@ -123,18 +137,16 @@ class Conectar():
         res = cursor.fetchall()
         return res
 
-    # def consulta_gral(self, col1, tabla1, col_cond1, condicion1):
-    #     cursor = self.conexion.cursor()
-    #     sql = 'SELECT %s FROM %s WHERE %s = %s'
-    #     data = {
-    #         col : col1,
-    #         tabla : tabla1,
-    #         col_cond : col_cond1,
-    #         condicion : condicion1
-    #     }
-    #     cursor.execute(sql, data)
-    #     res = cursor.fetchall()
-    #     return res
+    def listar_propiedades_por_id(self, id_p):
+        cursor = self.conexion.cursor()
+        sql = "SELECT p.id_propiedad, t.nombre_tipo, o.nombre_operatoria_comercial, e.nombre_estado, pro.nombre, p.nombre, p.direccion, p.contacto, t.nombre_tipo FROM propiedad as p JOIN tipo as t ON p.id_tipo = t.id_tipo JOIN estado as e ON p.id_estado = e.id_estado JOIN operatoria_comercial as o ON p.id_operatoria_comercial = o.id_operatoria_comercial JOIN propietario as pro ON p.id_propietario = pro.id_propietario WHERE p.id_propiedad = %s"
+        data = (
+            id_p,
+        )
+        cursor.execute(sql, data)
+        res = cursor.fetchall()
+        return res
+    
 
 class Propiedad():
     def __init__(self, id_propiedad, tipo, estado, operatoria, propietario, nombre, direccion, contacto):
