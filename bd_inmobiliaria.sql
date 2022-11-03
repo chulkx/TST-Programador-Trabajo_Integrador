@@ -61,3 +61,4 @@ INSERT INTO operatoria_comercial VALUES (null,'Alquiler');
 INSERT INTO operatoria_comercial VALUES (null,'Venta');
 
 
+SELECT p.id_propiedad, t.nombre_tipo, o.nombre_operatoria_comercial, e.nombre_estado, pro.nombre, p.nombre, p.direccion, p.contacto, t.nombre_tipo FROM propiedad as p JOIN tipo as t ON p.id_tipo = t.id_tipo JOIN estado as e ON p.id_estado = e.id_estado JOIN operatoria_comercial as o ON p.id_operatoria_comercial = o.id_operatoria_comercial JOIN propietario as pro ON p.id_propietario = pro.id_propietario

@@ -1,3 +1,4 @@
+from msilib.schema import Condition
 import mysql.connector
 from rich import print
 
@@ -48,16 +49,31 @@ class Conectar():
     def modif_propiedad(self):
         pass
 
-    def eliminar_propiedad(self):
-        pass
+    def eliminar_propiedad(self, id_p):
+        if self.conexion.is_connected():
+            cursor = self.conexion.cursor()
+            sql = "DELETE FROM propiedad WHERE propiedad.id_propiedad = %s"
+            data = (
+                id_p,
+            )
+            cursor.execute(sql, data)
+            self.conexion.commit()
+            self.conexion.close()
+        
 
     def consulta_propiedades(self):
         cursor = self.conexion.cursor()
-        sentenciaSQL = "SELECT * FROM propiedades"
+        sentenciaSQL = "SELECT * FROM propiedad"
         cursor.execute(sentenciaSQL)
         res = cursor.fetchall()
         return res
-        
+    
+    def consulta_propiedades_tabla(self):
+        cursor = self.conexion.cursor()
+        sql = "SELECT p.id_propiedad, t.nombre_tipo, o.nombre_operatoria_comercial, e.nombre_estado, pro.nombre, p.nombre, p.direccion, p.contacto, t.nombre_tipo FROM propiedad as p JOIN tipo as t ON p.id_tipo = t.id_tipo JOIN estado as e ON p.id_estado = e.id_estado JOIN operatoria_comercial as o ON p.id_operatoria_comercial = o.id_operatoria_comercial JOIN propietario as pro ON p.id_propietario = pro.id_propietario"
+        cursor.execute(sql)
+        res = cursor.fetchall()
+        return res
 
     def consulta_propiedades_venta(self):
         cursor = self.conexion.cursor()
@@ -106,6 +122,19 @@ class Conectar():
         cursor.execute(sentenciaSQL)
         res = cursor.fetchall()
         return res
+
+    # def consulta_gral(self, col1, tabla1, col_cond1, condicion1):
+    #     cursor = self.conexion.cursor()
+    #     sql = 'SELECT %s FROM %s WHERE %s = %s'
+    #     data = {
+    #         col : col1,
+    #         tabla : tabla1,
+    #         col_cond : col_cond1,
+    #         condicion : condicion1
+    #     }
+    #     cursor.execute(sql, data)
+    #     res = cursor.fetchall()
+    #     return res
 
 class Propiedad():
     def __init__(self, id_propiedad, tipo, estado, operatoria, propietario, nombre, direccion, contacto):

@@ -1,6 +1,8 @@
+from ast import operator
 import modelo as mo
 from rich import print
 from rich.console import Console
+from rich.table import Table
 
 consola = Console()
 
@@ -12,8 +14,13 @@ def cargar_propiedad():
 
     consola.print('Ingrese el ID del tipo correspondiente: ', style=('bold blue'))
     tipos = con.listar_tipos()
+    tabla = Table(title='Tipo de Propiedad')
+    tabla.add_column("ID Tipo", justify="right", style="cyan", no_wrap=True)
+    tabla.add_column("NOMBRE", style="magenta")
     for t in tipos:
-        consola.print('ID: ', t[0] ,' ---> ', t[1])
+        tabla.add_row(str(t[0]), str(t[1]))
+    consola.print(tabla)
+
     while a:
         try:
             tipo = int(input('->'))
@@ -98,14 +105,28 @@ def modif_propiedad():
     pass
 
 def eliminar_propiedad():
-    pass
+    consola.print("Ingrese el ID de la propiedad a eliminar: ",style=("bold blue"))
+    id_p = input("->")
+    con = mo.Conectar()
+    con.eliminar_propiedad(id_p)
+    
 
 def listar_propiedades():
     con = mo.Conectar()
-    listado = con.consulta_propiedades()
+    listado = con.consulta_propiedades_tabla()
+    tabla = Table(title='Propiedades', show_lines=True)
+    tabla.add_column("ID", justify="right", style="cyan", no_wrap=True)
+    tabla.add_column("TIPO", style="magenta")
+    tabla.add_column("ESTADO", style="magenta")
+    tabla.add_column("OPERATORIA", style="magenta")
+    tabla.add_column("PROPIETARIO", style="magenta")
+    tabla.add_column("NOMBRE", style="magenta")
+    tabla.add_column("DIRECCION", style="magenta")
+    tabla.add_column("CONTACTO", style="magenta")
     for l in listado:
-        consola.print(l, style=("bold red"))
-        print("\n")
+        tabla.add_row(str(l[0]), str(l[1]), str(l[2]), str(l[3]), str(l[4]), str(l[5]), str(l[6]), str(l[7]))
+        
+    consola.print(tabla)
     input("Presiones ENTER para continuar")
 
 def listar_propiedades_venta():
