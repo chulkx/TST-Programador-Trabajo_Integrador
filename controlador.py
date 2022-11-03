@@ -117,7 +117,12 @@ def listar_propiedades_venta():
     input("Presiones ENTER para continuar")
 
 def listar_propiedades_alquiler():
-    pass
+    con = mo.Conectar()
+    listado = con.consulta_propiedades_alquiler()
+    for l in listado:
+        consola.print(l, style=("bold red"))
+        print("\n")
+    input("Presiones ENTER para continuar")
 
 def listar_propiedades_vendidas():
     pass
