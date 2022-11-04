@@ -134,14 +134,17 @@ def modif_propiedad():
         campo_c = 'id_estado'
         print(con.listar_estado())
     elif campo == 5:
-        campo_c = 'nombre'
+        campo_c = 'id_propietario'
+        print(con.listar_propietario())
     elif campo == 6:
-        campo_c = 'direccion'
+        campo_c = 'nombre'
     elif campo == 7:
+        campo_c = 'direccion'
+    elif campo == 8:
         campo_c = 'contacto'
 
     print('Ingrese el nuevo dato:')
-    dato = input('->')
+    dato = str(input('->'))
     con.modif_propiedad(campo_c, dato, id_p)
 
 

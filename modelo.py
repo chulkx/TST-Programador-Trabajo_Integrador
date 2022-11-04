@@ -49,7 +49,7 @@ class Conectar():
     def modif_propiedad(self, campo, dato, id_p):
         if self.conexion.is_connected():
             cursor = self.conexion.cursor()
-            sql = "UPDATE propiedad SET "+campo+" = "+dato+" WHERE propiedad.id_propiedad = "+id_p
+            sql = "UPDATE propiedad SET "+campo+" = '"+dato+"' WHERE propiedad.id_propiedad = "+id_p
             cursor.execute(sql)
             self.conexion.commit()
             self.conexion.close()
