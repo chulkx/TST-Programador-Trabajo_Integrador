@@ -14,7 +14,7 @@ def cargar_propiedad():
 
     consola.print('Ingrese el ID del tipo correspondiente: ', style=('bold blue'))
     tipos = con.listar_tipos()
-    tabla = Table(title='Tipo de Propiedad')
+    tabla = Table(title='Tipo de Propiedad',  title_style='bold green')
     tabla.add_column("ID Tipo", justify="right", style="cyan", no_wrap=True)
     tabla.add_column("NOMBRE", style="magenta")
     for t in tipos:
@@ -30,8 +30,12 @@ def cargar_propiedad():
 
     consola.print('Ingrese el ID del estado correspondiente: ', style=('bold blue'))
     estados = con.listar_estado()
+    tabla = Table(title='Estado', title_style='bold green')
+    tabla.add_column("ID Estado", justify="right", style="cyan", no_wrap=True)
+    tabla.add_column("NOMBRE", style="magenta")
     for e in estados:
-        consola.print('ID: ', e[0] ,' ---> ', e[1])
+        tabla.add_row(str(e[0]), str(e[1]))
+    consola.print(tabla)
     a = True
     while a:
         try:
@@ -39,11 +43,16 @@ def cargar_propiedad():
             a = False
         except:
             consola.print('Dato incorrecto')
+    
 
     consola.print('Ingrese el ID de la operatoria correspondiente: ', style=('bold blue'))
     operaciones = con.listar_operatoria()
+    tabla = Table(title='Operatoria',  title_style='bold green')
+    tabla.add_column("ID Operatoria", justify="right", style="cyan", no_wrap=True)
+    tabla.add_column("NOMBRE", style="magenta")
     for o in operaciones:
-        consola.print('ID: ', o[0] ,' ---> ', o[1])
+        tabla.add_row(str(o[0]), str(o[1]))
+    consola.print(tabla)
     a = True
     while a:
         try:
@@ -51,11 +60,17 @@ def cargar_propiedad():
             a = False
         except:
             consola.print('Dato incorrecto')
+    
 
     consola.print('Ingrese el ID del propietario correspondiente: ', style=('bold blue'))
     propietarios = con.listar_propietario()
+    tabla = Table(title='Propietarios',  title_style='bold green')
+    tabla.add_column("ID Propietario", justify="right", style="cyan", no_wrap=True)
+    tabla.add_column("NOMBRE", style="magenta")
+    tabla.add_column("CONTACTO", style="magenta")
     for p in propietarios:
-        consola.print('ID: ', p[0] ,' ---> ', p[1])
+        tabla.add_row(str(p[0]), str(p[1]), str(p[2]))
+    consola.print(tabla)
     a = True
     while a:
         try:
@@ -134,6 +149,7 @@ def modif_propiedad():
 
 def eliminar_propiedad():
     consola.print("Ingrese el ID de la propiedad a eliminar: ",style=("bold blue"))
+    listar_propiedades()
     id_p = input("->")
     con = mo.Conectar()
     con.eliminar_propiedad(id_p)
